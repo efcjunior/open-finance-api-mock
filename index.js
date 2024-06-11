@@ -291,8 +291,72 @@ app.get('/variable-incomes/v1/broker-notes/:brokerNoteId', (req, res) => {
     });
 });
 
+app.get('/funds/v1/investments', (req, res) => {
+    const filePath = path.join(__dirname, 'repository', 'funds-investments.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
 
+// Endpoint para detalhes do investimento
+app.get('/funds/v1/investments/:investmentId', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'funds-investments-detail.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const investmentDetails = JSON.parse(data);
+        res.json(investmentDetails);
+    });
+});
 
+app.get('/funds/v1/investments/:investmentId/balances', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'funds-investments-balance.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const balanceDetails = JSON.parse(data);
+
+        res.json(balanceDetails);
+    });
+});
+
+app.get('/funds/v1/investments/:investmentId/transactions', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'funds-investments-transaction.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const transactionDetails = JSON.parse(data);
+
+        res.json(transactionDetails);
+    });
+});
+
+app.get('/funds/v1/investments/:investmentId/transactions-current', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'funds-investments-transaction-current.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const transactionDetails = JSON.parse(data);        
+
+        res.json(transactionDetails);
+    });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

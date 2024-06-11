@@ -93,6 +93,21 @@ app.get('/bank-fixed-incomes/v1/investments/:investmentId', (req, res) => {
     });
 });
 
+//Endpoint para saldos do investimento
+app.get('/bank-fixed-incomes/v1/investments/:investmentId/balances', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'bank-fixed-incomes-investments-balance.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const balanceDetails = JSON.parse(data);
+        
+        res.json(balanceDetails);
+    });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

@@ -208,6 +208,92 @@ app.get('/credit-fixed-incomes/v1/investments/:investmentId/transactions-current
     });
 });
 
+
+// Endpoint transações atuais do investimento
+app.get('/variable-incomes/v1/investments', (req, res) => {
+    const filePath = path.join(__dirname, 'repository', 'variable-incomes-investments.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+// Endpoint para detalhes do investimento
+app.get('/variable-incomes/v1/investments/:investmentId', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'variable-incomes-investments-detail.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const investmentDetails = JSON.parse(data);
+        res.json(investmentDetails);
+    });
+});
+
+app.get('/variable-incomes/v1/investments/:investmentId/balances', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'variable-incomes-investments-balance.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const balanceDetails = JSON.parse(data);
+
+        res.json(balanceDetails);
+    });
+});
+
+app.get('/variable-incomes/v1/investments/:investmentId/transactions', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'variable-incomes-investments-transaction.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const transactionDetails = JSON.parse(data);
+
+        res.json(transactionDetails);
+    });
+});
+
+app.get('/variable-incomes/v1/investments/:investmentId/transactions-current', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'variable-incomes-investments-transaction-current.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const transactionDetails = JSON.parse(data);        
+
+        res.json(transactionDetails);
+    });
+});
+
+app.get('/variable-incomes/v1/broker-notes/:brokerNoteId', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'variable-incomes-broker-notes-investments.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const brokerNotes = JSON.parse(data);        
+
+        res.json(brokerNotes);
+    });
+});
+
+
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

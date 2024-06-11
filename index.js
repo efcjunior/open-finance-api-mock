@@ -67,7 +67,6 @@ app.post('/auth/realms/intranet/protocol/openid-connect/token', (req, res) => {
     }
 });
 
-// Endpoint de investimentos
 app.get('/bank-fixed-incomes/v1/investments', (req, res) => {
     const filePath = path.join(__dirname, 'repository', 'bank-fixed-incomes-investments.json');
     fs.readFile(filePath, 'utf8', (err, data) => {
@@ -79,7 +78,6 @@ app.get('/bank-fixed-incomes/v1/investments', (req, res) => {
     });
 });
 
-// Endpoint para detalhes do investimento
 app.get('/bank-fixed-incomes/v1/investments/:investmentId', (req, res) => {
     const investmentId = req.params.investmentId;
     const filePath = path.join(__dirname, 'repository', 'bank-fixed-incomes-investments-detail.json');
@@ -94,7 +92,6 @@ app.get('/bank-fixed-incomes/v1/investments/:investmentId', (req, res) => {
 });
 
 
-// Endpoint para saldos do investimento
 app.get('/bank-fixed-incomes/v1/investments/:investmentId/balances', (req, res) => {
     const investmentId = req.params.investmentId;
     const filePath = path.join(__dirname, 'repository', 'bank-fixed-incomes-investments-balance.json');
@@ -109,7 +106,6 @@ app.get('/bank-fixed-incomes/v1/investments/:investmentId/balances', (req, res) 
     });
 });
 
-// Endpoint para transações do investimento
 app.get('/bank-fixed-incomes/v1/investments/:investmentId/transactions', (req, res) => {
     const investmentId = req.params.investmentId;
     const filePath = path.join(__dirname, 'repository', 'bank-fixed-incomes-investments-transaction.json');
@@ -124,7 +120,6 @@ app.get('/bank-fixed-incomes/v1/investments/:investmentId/transactions', (req, r
     });
 });
 
-// Endpoint transações atuais do investimento
 app.get('/bank-fixed-incomes/v1/investments/:investmentId/transactions-current', (req, res) => {
     const investmentId = req.params.investmentId;
     const filePath = path.join(__dirname, 'repository', 'bank-fixed-incomes-investments-transaction-current.json');
@@ -140,7 +135,6 @@ app.get('/bank-fixed-incomes/v1/investments/:investmentId/transactions-current',
 });
 
 
-// Endpoint transações atuais do investimento
 app.get('/credit-fixed-incomes/v1/investments', (req, res) => {
     const filePath = path.join(__dirname, 'repository', 'credit-fixed-incomes-investments.json');
     fs.readFile(filePath, 'utf8', (err, data) => {
@@ -152,7 +146,6 @@ app.get('/credit-fixed-incomes/v1/investments', (req, res) => {
     });
 });
 
-// Endpoint para detalhes do investimento
 app.get('/credit-fixed-incomes/v1/investments/:investmentId', (req, res) => {
     const investmentId = req.params.investmentId;
     const filePath = path.join(__dirname, 'repository', 'credit-fixed-incomes-investments-detail.json');
@@ -209,7 +202,6 @@ app.get('/credit-fixed-incomes/v1/investments/:investmentId/transactions-current
 });
 
 
-// Endpoint transações atuais do investimento
 app.get('/variable-incomes/v1/investments', (req, res) => {
     const filePath = path.join(__dirname, 'repository', 'variable-incomes-investments.json');
     fs.readFile(filePath, 'utf8', (err, data) => {
@@ -221,7 +213,6 @@ app.get('/variable-incomes/v1/investments', (req, res) => {
     });
 });
 
-// Endpoint para detalhes do investimento
 app.get('/variable-incomes/v1/investments/:investmentId', (req, res) => {
     const investmentId = req.params.investmentId;
     const filePath = path.join(__dirname, 'repository', 'variable-incomes-investments-detail.json');
@@ -302,7 +293,6 @@ app.get('/funds/v1/investments', (req, res) => {
     });
 });
 
-// Endpoint para detalhes do investimento
 app.get('/funds/v1/investments/:investmentId', (req, res) => {
     const investmentId = req.params.investmentId;
     const filePath = path.join(__dirname, 'repository', 'funds-investments-detail.json');
@@ -347,6 +337,72 @@ app.get('/funds/v1/investments/:investmentId/transactions', (req, res) => {
 app.get('/funds/v1/investments/:investmentId/transactions-current', (req, res) => {
     const investmentId = req.params.investmentId;
     const filePath = path.join(__dirname, 'repository', 'funds-investments-transaction-current.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const transactionDetails = JSON.parse(data);        
+
+        res.json(transactionDetails);
+    });
+});
+
+app.get('/treasure-titles/v1/investments', (req, res) => {
+    const filePath = path.join(__dirname, 'repository', 'treasure-titles-investments.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+app.get('/treasure-titles/v1/investments/:investmentId', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'treasure-titles-investments-detail.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const investmentDetails = JSON.parse(data);
+        res.json(investmentDetails);
+    });
+});
+
+app.get('/treasure-titles/v1/investments/:investmentId/balances', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'treasure-titles-investments-balance.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const balanceDetails = JSON.parse(data);
+
+        res.json(balanceDetails);
+    });
+});
+
+app.get('/treasure-titles/v1/investments/:investmentId/transactions', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'treasure-titles-investments-transaction.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        const transactionDetails = JSON.parse(data);
+
+        res.json(transactionDetails);
+    });
+});
+
+app.get('/treasure-titles/v1/investments/:investmentId/transactions-current', (req, res) => {
+    const investmentId = req.params.investmentId;
+    const filePath = path.join(__dirname, 'repository', 'treasure-titles-investments-transaction-current.json');
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading file:', err);

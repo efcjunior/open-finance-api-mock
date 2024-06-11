@@ -1,0 +1,31 @@
+{
+  "data": {
+    "isinCode": "BRCST4CTF001",
+    "productName": "Tesouro Selic 2025",
+    "remuneration": {
+      "indexer": "CDI",
+      "indexerAdditionalInfo": "Dólar",
+      "preFixedRate": "0.300000",
+      "postFixedIndexerPercentage": "1.100000",
+      "ratePeriodicity": "DIARIO",
+      "calculation": "DIAS_CORRIDOS"
+    },
+    "dueDate": "2018-02-15",
+    "purchaseDate": "2018-02-15",
+    "voucherPaymentIndicator": "SIM",
+    "voucherPaymentPeriodicity": "MENSAL",
+    "voucherPaymentPeriodicityAdditionalInfo": "Diária"
+  },
+  "links": {
+    "self": "https://api.banco.com.br/open-banking/api/v1/resource",
+    "first": "https://api.banco.com.br/open-banking/api/v1/resource",
+    "prev": "https://api.banco.com.br/open-banking/api/v1/resource",
+    "next": "https://api.banco.com.br/open-banking/api/v1/resource",
+    "last": "https://api.banco.com.br/open-banking/api/v1/resource"
+  },
+  "meta": {
+    "totalRecords": 1,
+    "totalPages": 1,
+    "requestDateTime": "2021-05-21T08:30:00Z"
+  }
+}
